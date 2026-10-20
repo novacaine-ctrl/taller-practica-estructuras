@@ -1,0 +1,61 @@
+import java.util.Scanner;
+
+public class VentasMatriz {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+
+        double[][] ventas = new double[4][3];
+
+
+        System.out.println("--- INGRESO DE DATOS DE VENTAS ---");
+        for (int sucursal = 0; sucursal < 4; sucursal++) {
+            System.out.println("Sucursal " + sucursal + ":");
+            for (int producto = 0; producto < 3; producto++) {
+                System.out.print("  Ventas del Producto " + producto + ": ");
+                ventas[sucursal][producto] = scanner.nextDouble();
+            }
+        }
+
+        System.out.println("\n--- TOTALES POR SUCURSAL ---");
+        for (int sucursal = 0; sucursal < 4; sucursal++) {
+            double totalSucursal = 0;
+            for (int producto = 0; producto < 3; producto++) {
+                totalSucursal += ventas[sucursal][producto];
+            }
+            System.out.printf("Sucursal %d: %.2f%n", sucursal, totalSucursal);
+        }
+
+
+        System.out.println("\n--- TOTALES POR PRODUCTO ---");
+        for (int producto = 0; producto < 3; producto++) {
+            double totalProducto = 0;
+            for (int sucursal = 0; sucursal < 4; sucursal++) {
+                totalProducto += ventas[sucursal][producto];
+            }
+            System.out.printf("Producto %d: %.2f%n", producto, totalProducto);
+        }
+
+
+        double maxVenta = ventas[0][0];
+        int sucMax = 0;
+        int prodMax = 0;
+
+        for (int sucursal = 0; sucursal < 4; sucursal++) {
+            for (int producto = 0; producto < 3; producto++) {
+                if (ventas[sucursal][producto] > maxVenta) {
+                    maxVenta = ventas[sucursal][producto];
+                    sucMax = sucursal;
+                    prodMax = producto;
+                }
+            }
+        }
+
+
+        System.out.println("\n--- VENTA MÁS ALTA ---");
+        System.out.printf("Monto más alto: %.2f%n", maxVenta);
+        System.out.printf("Sucursal: %d | Producto: %d%n", sucMax, prodMax);
+
+        scanner.close();
+    }
+}

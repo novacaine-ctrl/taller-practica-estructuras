@@ -1,0 +1,54 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class NumerosPrimos {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese el valor inicial (a): ");
+        int a = scanner.nextInt();
+
+        System.out.print("Ingrese el valor final (b): ");
+        int b = scanner.nextInt();
+
+        int cantidad = 0;
+        int suma = 0;
+        List<Integer> listaPrimos = new ArrayList<>();
+
+
+        for (int numero = a; numero <= b; numero++) {
+            
+
+            if (numero < 2) {
+                continue;
+            }
+
+            boolean esPrimo = true;
+            int divisor = 2;
+
+
+            while (divisor <= Math.sqrt(numero) && esPrimo) {
+                if (numero % divisor == 0) {
+                    esPrimo = false; 
+                }
+                divisor++;
+            }
+
+
+            if (esPrimo) {
+                listaPrimos.add(numero);
+                cantidad++;
+                suma += numero;
+            }
+        }
+
+
+        System.out.println("\n--- RESULTADOS ---");
+        System.out.println("Primos encontrados: " + listaPrimos);
+        System.out.println("Cantidad de primos : " + cantidad);
+        System.out.println("Suma total         : " + suma);
+
+        scanner.close();
+    }
+}

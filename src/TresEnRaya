@@ -1,0 +1,123 @@
+import java.util.Scanner;
+
+public class TresEnRaya {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+
+        char[][] tablero = new char[3][3];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                tablero[i][j] = ' ';
+            }
+        }
+
+        int turno = 1; 
+        boolean hayGanador = false;
+        boolean tableroLleno = false;
+        char simbolo = 'X';
+
+        while (!hayGanador && !tableroLleno) {
+
+            simbolo = (turno == 1) ? 'X' : 'O';
+
+            mostrarTablero(tablero);
+            System.out.println("Turno del jugador " + simbolo);
+
+            int fila = -1;
+            int columna = -1;
+            boolean celdaValida = false;
+
+
+            do {
+                System.out.print("Ingrese fila (0-2) y columna (0-2) separadas por espacio: ");
+                fila = scanner.nextInt();
+                columna = scanner.nextInt();
+
+                celdaValida = (fila >= 0 && fila <= 2) && 
+                              (columna >= 0 && columna <= 2) && 
+                              (tablero[fila][columna] == ' ');
+
+                if (!celdaValida) {
+                    System.out.println("Celda inválida u ocupada. ¡Intenta de nuevo!");
+                }
+            } while (!celdaValida);
+
+
+            tablero[fila][columna] = simbolo;
+
+
+            hayGanador = verificarGanador(tablero, simbolo);
+
+
+            tableroLleno = true;
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if (tablero[i][j] == ' ') {
+                        tableroLleno = false;
+                        break;
+                    }
+                }
+            }
+
+
+            if (!hayGanador) {
+                turno = (turno == 1) ? 2 : 1;
+            }
+        }
+
+  
+        System.out.println("\n=== TABLERO FINAL ===");
+        mostrarTablero(tablero);
+
+        if (hayGanador) {
+            System.out.println("¡Ganó el jugador " + simbolo + "!");
+        } else {
+            System.out.println("¡Empate! El tablero se ha llenado.");
+        }
+
+        scanner.close();
+    }
+
+
+    public static boolean verificarGanador(char[][] tablero, char simbolo) {
+
+        for (int i = 0; i < 3; i++) {
+            if (tablero[i][0] == simbolo && tablero[i][1] == simbolo && tablero[i][2] == simbolo) {
+                return true;
+            }
+        }
+
+
+        for (int j = 0; j < 3; j++) {
+            if (tablero[0][j] == simbolo && tablero[1][j] == simbolo && tablero[2][j] == simbolo) {
+                return true;
+            }
+        }
+
+
+        if (tablero[0][0] == simbolo && tablero[1][1] == simbolo && tablero[2][2] == simbolo) {
+            return true;
+        }
+
+ 
+        if (tablero[0][2] == simbolo && tablero[1][1] == simbolo && tablero[2][0] == simbolo) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    public static void mostrarTablero(char[][] tablero) {
+        System.out.println("\n-------------");
+        for (int i = 0; i < 3; i++) {
+            System.out.print("| ");
+            for (int j = 0; j < 3; j++) {
+                System.out.print(tablero[i][j] + " | ");
+            }
+            System.out.println("\n-------------");
+        }
+    }
+}

@@ -1,0 +1,21 @@
+# Compiled Java output
+bin/
+out/
+target/
+*.class
+
+# Java build and IDE metadata
+.classpath
+.project
+.settings/
+
+# VS Code local files
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# OS-generated files
+.DS_Store
+Thumbs.db
